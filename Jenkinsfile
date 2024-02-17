@@ -4,6 +4,7 @@ pipeline {
         DOCKER_IMAGE = "nyamatulla/springboot-app:${BUILD_NUMBER}"
         DOCKER_CONT = "springboot-blog${BUILD_NUMBER}"
         REGISTRY_CREDENTIALS = credentials('dockerHub')
+    }
     
     stages {
         stage('checkout') {
@@ -37,3 +38,4 @@ pipeline {
         }  
     }
 }
+    
