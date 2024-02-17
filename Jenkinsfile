@@ -28,11 +28,14 @@ pipeline {
         stage('Docker build and Push') {
             steps {
                script {
-                  sh "docker build -t ${DOCKER_IMAGE} ."
-                  def dockerImage = docker.image("${DOCKER_IMAGE}")
-                  docker.withRegistry('https://index.docker.io/v1/', "dockerHub") {
-                      dockerImage.push()
-                  } 
+                   withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
+                        sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
+                        sh "docker build -t ${DOCKER_IMAGE} ."
+                        def dockerImage = docker.image("${DOCKER_IMAGE}")
+                        docker.withRegistry('https://index.docker.io/v1/', "dockerHub") {
+                            dockerImage.push()
+                        }
+                   } 
                } 
             }
         }  
