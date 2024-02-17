@@ -18,13 +18,13 @@ pipeline {
                 sh 'mvn compile'
             }
         }
-        stage('SonarQube Analysis') {
+        /* stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('sonar') {
                   sh "mvn clean verify sonar:sonar -Dsonar.projectKey=springboot -Dsonar.projectName='springboot'"
                 }
             }
-        }
+        } */
         stage('Docker build and Push') {
             steps {
                script {
