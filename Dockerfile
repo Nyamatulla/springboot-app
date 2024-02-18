@@ -11,4 +11,4 @@ COPY target/devops-blog-1.0-SNAPSHOT.jar /app/devops-blog.jar
 EXPOSE 7000
 
 # Specify the command to run on container startup
-CMD ["mvn", "spring-boot:run"]
+CMD ["java", "-jar", "devops-blog.jar"]
