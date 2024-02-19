@@ -18,13 +18,13 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
-        /* stage('SonarQube Analysis') {
+        stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('sonar') {
                   sh "mvn clean verify sonar:sonar -Dsonar.projectKey=springboot -Dsonar.projectName='springboot'"
                 }
             }
-        } */
+        }
 
         stage('Deploy to Nexus') {
             steps {
@@ -42,13 +42,24 @@ pipeline {
             steps {
                script {
                     sh "docker build -t ${DOCKER_IMAGE} ."
-                    /* def dockerImage = docker.image("${DOCKER_IMAGE}")
+                    def dockerImage = docker.image("${DOCKER_IMAGE}")
                     docker.withRegistry('https://index.docker.io/v1/', "dockerHub") {
                         dockerImage.push()
-                    } */
+                    } 
                } 
             }
-        }  
+        }
+        stage(" trivy scans") {
+            steps {
+                script {
+                    sh "trivy fs ."
+                    echo " Scanned current file system"
+                    echo "scanning docker image"
+                    sh "trivi image ${DOCKER_IMAGE}"
+                    echo " scan completed"
+                }
+            }
+        }
     }
 }
     
