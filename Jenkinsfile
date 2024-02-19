@@ -55,7 +55,7 @@ pipeline {
                     sh "trivy fs ."
                     echo " Scanned current file system"
                     echo "scanning docker image"
-                    sh "trivi image ${DOCKER_IMAGE}"
+                    sh "trivy image ${DOCKER_IMAGE}"
                     echo " scan completed"
                 }
             }
