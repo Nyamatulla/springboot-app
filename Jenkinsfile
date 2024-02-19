@@ -31,8 +31,8 @@ pipeline {
                 script {
 
                     sh '''mvn deploy:deploy-file -Durl=http://192.168.43.37:8081/repository/maven-snapshots/ 
-                          -DrepositoryId=maven-snapshots -Dfile=target/devops-blog-1.0-SNAPSHOT.jar -DgroupId=com.example 
-                          -DartifactId=devops-blog -Dversion=1.0-SNAPSHOT -Dpackaging=jar
+                         -DrepositoryId=maven-snapshots -DgroupId=com.example -DartifactId=devops-blog 
+                        -Dversion=1.0-SNAPSHOT -Dpackaging=jar -Dfile=target/devops-blog-1.0-SNAPSHOT.jar
                     '''
                 }
             }
