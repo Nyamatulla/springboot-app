@@ -38,7 +38,7 @@ pipeline {
                 }
             }
         }
-       /* stage('Docker build and Push') {
+        stage('Docker build and Push') {
             steps {
                script {
                     sh "docker build -t ${DOCKER_IMAGE} ."
@@ -48,7 +48,7 @@ pipeline {
                     } 
                } 
             }
-        } */  
+        }  
     }
 }
     
