@@ -29,18 +29,11 @@ pipeline {
         stage('Deploy to Nexus') {
             steps {
                 script {
-                    nexusArtifactUploader(
-                        nexusVersion: 'nexus3',
-                        protocol: 'http',
-                        nexusUrl: 'http://localhost:8081/',
-                        groupId: 'com.example',
-                        version: '1.0-SNAPSHOT',
-                        repository: 'maven-snapshots',
-                        credentialsId: 'nexus-cred',
-                        artifacts: [
-                            [artifactId: 'devops-blog', classifier: '', file: 'target/devops-blog-1.0-SNAPSHOT.jar', type: 'jar']
-                        ]
-                    )
+
+                    sh '''mvn deploy:deploy-file -Durl=http://192.168.43.37:8081/repository/maven-snapshots/ 
+                          -DrepositoryId=maven-snapshots -Dfile=target/devops-blog-1.0-SNAPSHOT.jar -DgroupId=com.example 
+                          -DartifactId=devops-blog -Dversion=1.0-SNAPSHOT -Dpackaging=jar
+                    '''
                 }
             }
         }
