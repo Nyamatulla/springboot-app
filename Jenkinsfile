@@ -52,10 +52,10 @@ pipeline {
         stage(" trivy scans") {
             steps {
                 script {
-                    sh "trivy fs ."
+                    sh "trivy fs --severity HIGH,CRITICAL -f json -o fs_results.json ."
                     echo " Scanned current file system"
                     echo "scanning docker image"
-                    sh "trivy image ${DOCKER_IMAGE}"
+                    sh "trivy image --severity HIGH,CRITICAL -f json -o img_results.json ${DOCKER_IMAGE}"
                     echo " scan completed"
                 }
             }
