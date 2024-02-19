@@ -61,5 +61,18 @@ pipeline {
             }
         }
     }
+    post {
+        always {
+            script {
+                def previousBuildNumber = currentBuild.number - 1
+
+                // Remove previous Docker image
+                sh "docker rmi nyamatulla/springboot-app:${previousBuildNumber}"
+
+                // Delete previous Docker tags from Docker Hub
+                sh "docker image push --delete nyamatulla/springboot-app:${previousBuildNumber}"
+            }
+        }
+    }
 }
     
