@@ -25,7 +25,26 @@ pipeline {
                 }
             }
         } */
-        stage('Docker build and Push') {
+
+        stage('Deploy to Nexus') {
+            steps {
+                script {
+                    nexusArtifactUploader(
+                        nexusVersion: 'nexus3',
+                        protocol: 'http',
+                        nexusUrl: 'http://localhost:8081',
+                        groupId: 'com.example',
+                        version: '1.0-SNAPSHOT',
+                        repository: 'maven-snapshots',
+                        credentialsId: 'nexus-cred',
+                        artifacts: [
+                            [artifactId: 'devops-blog', classifier: '', file: 'target/devops-blog-1.0-SNAPSHOT.jar', type: 'jar']
+                        ]
+                    )
+                }
+            }
+        }
+       /* stage('Docker build and Push') {
             steps {
                script {
                     sh "docker build -t ${DOCKER_IMAGE} ."
@@ -35,7 +54,7 @@ pipeline {
                     } 
                } 
             }
-        }  
+        } */  
     }
 }
     
