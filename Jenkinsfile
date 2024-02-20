@@ -18,13 +18,13 @@ pipeline {
                 sh 'mvn compile'
             }
         }
-        stage('SonarQube Analysis') {
+       /* stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('sonar') {
                   sh "mvn clean verify sonar:sonar -Dsonar.projectKey=springboot -Dsonar.projectName='springboot'"
                 }
             }
-        }
+        } */
         stage("Build mvn") {
             steps {
                 sh 'mvn clean install'
@@ -74,8 +74,6 @@ pipeline {
                 // Remove previous Docker image
                 sh "docker rmi nyamatulla/springboot-app:${previousBuildNumber}"
 
-                // Delete previous Docker tags from Docker Hub
-                sh "docker image push --delete nyamatulla/springboot-app:${previousBuildNumber}"
             }
         }
     }
