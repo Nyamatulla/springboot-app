@@ -31,7 +31,7 @@ pipeline {
                 dependencyCheckPublisher pattern: 'dependency-check-report.html'
             }
         }*/
-        stage("Build mvn") {
+        stage("Maven Build and OWASP DP-CHECK") {
             steps {
                 sh 'mvn clean install'
             }
