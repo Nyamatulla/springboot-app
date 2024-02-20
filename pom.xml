@@ -7,6 +7,7 @@
     <version>1.0-SNAPSHOT</version>
     <name>devops-blog</name>
     <url>http://maven.apache.org</url>
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -40,7 +41,7 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
             <version>6.0.0</version>
-        </dependency>   
+        </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
@@ -57,10 +58,12 @@
             <version>9.0.69</version>
         </dependency>
     </dependencies>
+
     <properties>
         <!-- Specify Java version -->
         <java.version>17</java.version>
     </properties>
+
     <build>
         <plugins>
             <plugin>
@@ -113,17 +116,17 @@
                 </executions>
             </plugin>
             <plugin>
-              <groupId>org.owasp</groupId>
-              <artifactId>dependency-check-maven</artifactId>
-              <version>6.2.2</version>
-              <executions>
-                <execution>
-                  <goals>
-                    <goal>check</goal>
-                  </goals>
-                </execution>
-              </executions>
-            </plugin
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>6.2.2</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 </project>
