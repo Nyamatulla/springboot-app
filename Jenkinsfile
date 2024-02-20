@@ -75,15 +75,19 @@ pipeline {
     post {
         always {
             script {
+                def currentBuildNumber = currentBuild.number
                 def previousBuildNumber = currentBuild.number - 1
+       
+               def currentBuildStatus = currentBuild.result
+               def previousBuildStatus = currentBuild.previousBuild?.result
 
-            // Check if the previous build was successful
-                if (currentBuild.resultIsBetterOrEqualTo('SUCCESS')) {
+            // Check if the current and previous builds were successful
+               if (currentBuildStatus == 'SUCCESS' && previousBuildStatus == 'SUCCESS' && previousBuildNumber >= 1) {
                 // Remove previous Docker image
-                    sh "docker rmi nyamatulla/springboot-app:${previousBuildNumber}"
-                } else {
-                echo "Previous build was not successful. Skipping Docker image removal."
-                }
+                   sh "docker rmi nyamatulla/springboot-app:${previousBuildNumber}"
+               } else {
+                   echo "Skipping Docker image removal. Current or previous build was not successful."
+               }
             }
         }
     }
