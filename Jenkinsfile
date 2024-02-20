@@ -15,7 +15,7 @@ pipeline {
         }
         stage("compile") {
             steps {
-                sh 'mvn clean install'
+                sh 'mvn compile'
             }
         }
         stage('SonarQube Analysis') {
@@ -23,6 +23,11 @@ pipeline {
                 withSonarQubeEnv('sonar') {
                   sh "mvn clean verify sonar:sonar -Dsonar.projectKey=springboot -Dsonar.projectName='springboot'"
                 }
+            }
+        }
+        stage("Build mvn") {
+            steps {
+                sh 'mvn clean install'
             }
         }
 
