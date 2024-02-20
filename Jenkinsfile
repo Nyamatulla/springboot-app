@@ -77,9 +77,13 @@ pipeline {
             script {
                 def previousBuildNumber = currentBuild.number - 1
 
+            // Check if the previous build was successful
+                if (currentBuild.resultIsBetterOrEqualTo('SUCCESS')) {
                 // Remove previous Docker image
-                sh "docker rmi nyamatulla/springboot-app:${previousBuildNumber}"
-
+                    sh "docker rmi nyamatulla/springboot-app:${previousBuildNumber}"
+                } else {
+                echo "Previous build was not successful. Skipping Docker image removal."
+                }
             }
         }
     }
