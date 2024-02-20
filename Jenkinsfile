@@ -27,8 +27,8 @@ pipeline {
         } */
         stage("OWASP Dependency Check"){
             steps{
-                dependencyCheck additionalArguments: '--scan ./ --format JSON ', odcInstallation: 'dp-check'
-                dependencyCheckPublisher pattern: 'dependency-check-report.json'
+                dependencyCheck additionalArguments: '--scan ./ --format HTML ', odcInstallation: 'dp-check'
+                dependencyCheckPublisher pattern: 'dependency-check-report.html'
             }
         }
         stage("Build mvn") {
